@@ -89,7 +89,12 @@
                 },
                 success: function (result) {
                     if (userIDString == result.userId) {
-                        document.querySelector("#Tcontainer").innerHTML += `<button onclick="UpdateBrackets()">DADAADA</button>`
+                        document.querySelector("#Tcontainer").innerHTML += `
+                        <div onclick="UpdateBrackets()" class="update-wrap">
+                            <div id="Update-MessageWrap"><p>Update</p></div>
+                            <div><img src="/images/assets/icons/Update.png" /></div>
+                        </div>
+                        `
                     }
                     TeamsArray = result.teams
                     Tournament = result;
@@ -224,13 +229,31 @@
         let Teams = GetContestants(value, Tournament.bracketsize)
 
         document.getElementById(`M${Teams.player1.Index}`).classList.toggle("Winteam")
-        Updates[Teams.player1.teamId] = { "Matchwins": 1 }
+        if (Updates[Teams.player1.teamId]) {
+            delete Updates[Teams.player1.teamId]
+        } else {
+            Updates[Teams.player1.teamId] = { "Matchwins": 1 }
+        }
 
         document.getElementById(`M${Teams.player2.Index}`).classList.toggle("Out")
-        Updates[Teams.player2.teamId] = { "Out": true };
+        if (Updates[Teams.player2.teamId]) {
+            delete Updates[Teams.player2.teamId]
+        } else {
+            Updates[Teams.player2.teamId] = { "Out": true };
+        }
+        checkForUpdates()
+    }
 
+    function checkForUpdates() {
+        if (isEmpty()) {
+            document.getElementById("Update-MessageWrap").innerHTML = `<p>Update</p>`
+        } else {
+            document.getElementById("Update-MessageWrap").innerHTML = `<p>NEEDS UPDATE</p>`
+        }
+    }
 
-        console.log(Updates)
+    function isEmpty() {
+        return Object.keys(Updates).length === 0;
     }
 
     function UpdateBrackets() {
@@ -347,6 +370,27 @@
 </script>
 
 <style>
+    .update-wrap {
+        position: absolute;
+        right: 12px;
+        top: 14px;
+        display: flex;
+        width: max-content;
+        align-items: center;
+        z-index: 5;
+        cursor: pointer;
+    }
+
+    .update-wrap p{
+        font-size: 20px;
+        margin: 0;
+        color: white;
+    }
+
+    .update-wrap img{
+        height: 28px;
+        margin: 0 8px;
+    }
 
     button {
         position: fixed;

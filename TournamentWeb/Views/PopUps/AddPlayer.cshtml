@@ -1,18 +1,79 @@
 ﻿
 <div class="PopupBox">
-    <p>@("http://localhost:44881/Tournaments/AddPlayer/" + TempData["id1"] + "?TeamId=" + TempData["id2"])</p>
+    <p class="Inv-Header">Invite Link:</p>
+    <div class="Inv-Wrap">
+        <div class="copyIcon" onclick="CopyLink()">
+
+        </div>
+        <div class="invitelink">
+            <p>@("http://localhost:44881/Tournaments/AddPlayer/" + TempData["id1"] + "?TeamId=" + TempData["id2"])</p>
+        </div>
+    </div>
 </div>
 
+<script>
+    function CopyLink() {
+        console.log("dada")
+        document.getElementsByClassName("Inv-Wrap")[0].style.background = "#2fe8a7"
+        var elem = document.createElement("textarea");
+        document.body.appendChild(elem);
+        elem.value = "@("http://localhost:44881/Tournaments/AddPlayer/" + TempData["id1"] + "?TeamId=" + TempData["id2"])"
+        elem.select();
+        document.execCommand("copy");
+        document.body.removeChild(elem);
+    }
+</script>
+
 <style>
+    .invitelink {
+        background: #ffffff8f;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+    }
+
+    .invitelink p{
+        color: #000000bd;
+        margin: 0 0 0 12px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .copyIcon {
+        width: 48px;
+        margin-right: 8px;
+        background-image: url(/images/assets/icons/copy.png);
+        background-size: 34px;
+        background-repeat: no-repeat;
+        background-position: 11px 50%;
+        cursor: pointer;
+    }
+
     .PopupBox {
-        height: 300px;
-        width: 700px;
+        height: 120px;
+        width: 584px;
         border-radius: 24px;
         background: white;
         position: absolute;
         transform: translate(-50%, -50%);
         left: 50%;
         top: 50%;
+        background: #1c2123;
+        padding: 12px 42px;
+    }
+
+    .Inv-Wrap {
+        width: 100%;
+        height: 48px;
+        background: #939798;
+        display: flex;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .Inv-Header {
+        padding: 0 4px;
+        font-weight: bold;
+        color: #2fe8a7 !important;
     }
 
 </style>
