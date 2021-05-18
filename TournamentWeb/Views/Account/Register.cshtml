@@ -1,0 +1,71 @@
+﻿@model TournamentWeb.Models.ViewModels.RegisterViewModel
+
+    <div class="RegisterPage Page">
+        <div class="RegisterWrap">
+            <p>Register</p>
+            <div asp-validation-summary="All" class="text-Error"></div>
+            <form class="form-default" asp-controller="Account" asp-action="Register" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="UserName"></label>
+                    <input asp-for="UserName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="UserDiscord"></label>
+                    <input asp-for="UserDiscord" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ProfileImageFile">Profile Image</label>
+                    <input asp-for="ProfileImageFile" class="form-control form-file" type="file">
+
+                    @*????*@
+                    @*<label hidden asp-for="ProfileImage"></label>*@
+                </div>
+                <div class="form-submit-left">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a asp-controller="Account" asp-action="Logout" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .RegisterPage {
+            position: relative;
+            height: calc(100vh - 54px);
+            min-height: 808px;
+        }
+
+        .RegisterWrap {
+            padding: 42px;
+            height: max-content;
+            width: 524px;
+            border-radius: 12px;
+            background: #1c2123;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
+            box-shadow: 2px 2px 4px 0px #0000006e;
+        }
+
+        .RegisterWrap p {
+            text-align: center;
+            font-size: 24px;
+            margin: 0;
+        }
+    </style>

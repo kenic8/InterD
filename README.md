@@ -1,1 +1,1 @@
-InterD
+interdisciplinary

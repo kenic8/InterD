@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-logo">
+                    <a asp-area="" asp-controller="Landing" asp-action="LandingPage">TournamentWeb</a>
+                </div>
+                <div class="navbar-content">
+                    <a asp-area="" asp-controller="Tournaments" asp-action="Index">Tournaments</a>
+                    <a asp-area="" asp-controller="Addtournament" asp-action="AddTournament"> Create Tournament</a>
+                </div>
+                <div class="navbar-content-user">
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <a asp-controller="Account" asp-action="Logout"
+                           >Logout</a>
+                    }
+                    else
+                    {
+                        <a onclick="testfuck(0, 0, 0, 'LogIn')"
+                           class="button-Type1">Login</a>
+                        <a asp-controller="Account" asp-action="Register"
+                           class="button-Type2">Register</a>
+                    }
+                </div>
+            </div>
+</nav>
+    </header>
+    <div class="Facontainer">
+        <div id="Sidebar">
+            <div class="sidebarTrigger" onclick="ToggleSideBar()">
+                <div class="sidebarTrigger-Indicator"></div>
+            </div>
+        </div>
+        <main role="main" class="Page">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-explore">
+                <p>Explore</p>
+                <ul>
+                    <li><a>Create</a></li>
+                    <li><a>Torunaments</a></li>
+                    <li><a>About us</a></li>
+                    <li><a>Log in</a></li>
+                    <li><a>Sign up</a></li>
+                </ul>
+            </div>
+            <div class="footer-about">
+                <p>About</p>
+                <ul>
+                    <li><a>Aboout</a></li>
+                    <li><a>School Project</a></li>
+                    <li><a>Terms</a></li>
+                    <li><a>API</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <p>Social</p>
+                <a></a>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <script>
+        //popups
+        function testfuck(id1, id2, id3, PopupVIew) {
+            console.log("loaded")
+                $.ajax({
+                    url: "@Url.Action("InitPopUp", "Popup")",
+                    type: "POST",
+                    data: {
+                        'id1': id1,
+                        'id2': id2,
+                        'id3': id3,
+                        'PopupView': PopupVIew,
+                    },
+            /*        data: { "Id": 1 },  */
+                    success: function (result) {
+                $("BODY").prepend("<div class='PopUp'>" + result + "</div>");
+            }
+        })
+    }
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<script>
+    function ToggleSideBar(e) {
+        event.target.classList.toggle("sidebarTrigger-open")
+        document.getElementById("Sidebar").classList.toggle("Sidebar-open")
+    }
+
+</script>
+
+<style>
+    .Facontainer {
+        display: flex;
+    }
+
+    #Sidebar {
+        z-index: 1;
+        transition: min-width ease-out 0.2s;
+        min-width: 0px;
+        box-shadow: 1px 0px 0px 0px #2fe8a747, 0px 0px 18px 0px #00000045;
+        background: #00000082;
+    }
+
+    .Sidebar-open {
+        min-width: 250px !important;
+    }
+
+    .sidebarTrigger {
+        z-index: 2;
+        transition: left ease-out 0.2s, opacity ease-out 0.2s, border-radius ease-out 0.2s, height ease-out 0.2s, width ease-out 0.2s;
+        cursor: pointer;
+        height: 164px;
+        width: 14px;
+        background: #2fe8a7;
+        transform: translate(-50%, -50%);
+        left: 12px;
+        border-radius: 0px 8px 8px 0px;
+        position: fixed;
+        top: 50vh;
+        opacity: 1;
+    }
+
+    .sidebarTrigger-open {
+        height: 100px;
+        width: 24px;
+        left: 250px;
+        border-radius: 8px;
+        opacity: 0.8;
+    }
+
+    .sidebarTrigger .sidebarTrigger-Indicator {
+        pointer-events: none;
+        height: 14px;
+        width: 8px;
+        transition: transform ease 0.6s;
+        transform: translate(-50%, -50%) rotate(0deg);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        clip-path: polygon(0 0, 0 100%, 100% 50%);
+        background: #000000a3;
+    }
+    .sidebarTrigger-open .sidebarTrigger-Indicator {
+        transform: translate(-50%, -50%) rotate(180deg);
+    }
+
+
+    /* Navbar */
+    .navbar {
+        height: 54px;
+        background: #1c2123;
+        padding: 0 20px;
+    }
+
+    .navbar-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-container div {
+        margin: auto 8px;
+    }
+
+    .navbar-container div a{
+        position: relative;
+    }
+
+    .navbar-logo {
+        padding-right: 12px;
+        color: white !important;
+        font-weight: bold;
+        font-size: 24px;
+        letter-spacing: 2px;
+    }
+
+    .navbar-logo a{
+        color: white !important;
+    }
+
+    .navbar-content {
+        flex-grow: 1;
+    }
+
+    .navbar-content a{
+        color: #d6d6d6 !important;
+        margin: 0 12px !important;
+    }
+
+    .navbar-content-user {
+    }
+
+    /* Footer */
+    footer {
+        z-index: 2;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: max-content;
+        background: #1c2123;
+        padding: 46px 0 64px 0;
+    }
+
+    .footer-container {
+        height: 100%;
+        height: max-content;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 100px;
+    }
+
+    .footer-container div{
+        width: 100px;
+    }
+
+    .footer-container div ul{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer-container div p {
+        color: white;
+        font-weight: bold;
+        margin: 0 0 12px 0;
+
+    }
+
+
+    /* unvisited link */
+    a {
+        color: #2ee4a4;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    a:link {
+        color: #2ee4a4;
+        text-decoration: none;
+    }
+
+    /* visited link */
+    a:visited {
+        color: #2ee4a4;
+        text-decoration: none;
+    }
+
+    /* mouse over link */
+    a:hover {
+        color: #2ee4a4;
+        text-decoration: none;
+    }
+
+    /* selected link */
+    a:active {
+        color: #2ee4a4;
+        text-decoration: none;
+    }
+
+</style>
