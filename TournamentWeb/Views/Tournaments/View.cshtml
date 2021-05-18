@@ -50,7 +50,7 @@
 <div class="Pcontainer Page-Container">
     <div class="PHeading">
         <h2>Paricipants</h2>
-        <button class="TgoodButton" onclick="testfuck(@Model.TournamentId, 0, 0, 'CreateTeam')">
+        <button class="TgoodButton" onclick="initpopup(@Model.TournamentId, 0, 0, 'CreateTeam')">
             Join Tournament
         </button>
     </div>
@@ -63,7 +63,7 @@
                 {
                     @if (UserManager.GetUserId(User) == Attendee.UserID && Attendee.UserStatus == "TeamLeader")
                     {
-                        <div class="Addplayer" onclick="testfuck(@Model.TournamentId, @team.TeamId, 0, 'AddPlayer')">+</div>
+                        <div class="Addplayer" onclick="initpopup(@Model.TournamentId, @team.TeamId, 0, 'AddPlayer')">+</div>
                         <a asp-action="Delete" asp-route-id="@Model.TournamentId" asp-route-TeamId="@team.TeamId">
                             <div class="T-EvilButtons">Delete Team</div>
                         </a>
@@ -107,7 +107,7 @@
             @for (int i = 0; i < 5 - team.Attendees.Count; i++)
             {
                 <div class="AttendeeName">
-                    <div id="UseShipAddr" onclick="testfuck(@Model.TournamentId, @team.TeamId, 0, 'AddPlayer')">Empty</div>
+                    <div id="UseShipAddr" onclick="initpopup(@Model.TournamentId, @team.TeamId, 0, 'AddPlayer')">Empty</div>
                 </div>
             }
         </div>
@@ -121,7 +121,7 @@
 <script>
     if ($('#errorLoader').length) {
         $("#errorLoader").ready(function () {
-            testfuck(0, 0, 0, "@ViewBag.error");
+            initpopup(0, 0, 0, "@ViewBag.error");
         })
     }
 
