@@ -16,35 +16,33 @@
     </div>
 
     <div class="Tournaments-Container">
-        @for (int i = 0; i < 20; i++)
+        @*@for (int i = 0; i < 20; i++)*@
+        @foreach (var T in Model)
         {
-            if (i < Model.Count())
-            {
-                <a class="T_element" asp-action="OverView" asp-route-id="@Model.ElementAt(i).TournamentId">
+                <a class="T_element" asp-action="OverView" asp-route-id="@T.TournamentId">
                     @if (true)
                     {
-                    <div class="T_element-backdrop" style="background:url(/images/tournaments/@Html.DisplayFor(modelItem => Model.ElementAt(i).TournamentImage))">
-                        <span>@Html.DisplayFor(modelItem => Model.ElementAt(i).TournamentName)</span>
+                    <div class="T_element-backdrop" style="background:url(/images/tournaments/@T.TournamentImage)">
+                        <span>@T.TournamentName</span>
                     </div>
                     }
                     else
                     {
                 <div class="T_element-backdrop" style="background:url(/images/assets/placeholder.jpg)">
-                    <span>@Html.DisplayFor(modelItem => Model.ElementAt(i).TournamentName)</span>
+                    <span>@T.TournamentName</span>
                 </div>
                     }
-                    
-                    <div class="T_element-info">
-                        <div><span><img class="Icon" src="~/images/assets/Landing/att.png" />@Html.DisplayFor(modelItem => Model.ElementAt(i).ParticipantsAmount) &nbsp;&nbsp; </span></div>
-                        <div><span><img class="Icon" src="~/images/assets/Landing/teams.png" /> @Html.DisplayFor(modelItem => Model.ElementAt(i).Teams.Count) / @Html.DisplayFor(modelItem => Model.ElementAt(i).Bracketsize) </span></div>
-                        <div><span><img class="Icon" src="~/images/assets/Landing/dateicon.png" /> @Html.DisplayFor(modelItem => Model.ElementAt(i).TimeFrame.Date)</span></div>
-                    </div>
+
+                <div class="T_element-info">
+                    <div><span> <img class="Icon" src="~/images/assets/Landing/att.png" />@T.ParticipantsAmount</span></div>
+                    <div><span> <img class="Icon" src="~/images/assets/Landing/teams.png" /> @T.Teams.Count / @T.Bracketsize</span></div>
+                    <div><span><img class="Icon" src="~/images/assets/Landing/dateicon.png" /> @T.TimeFrame.ToString("dd/MM HH:mm")</span></div>
+                </div>
                 </a>
             }
-            else
-            {
-                <div class="search-placeholder"></div>
-            }
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="search-placeholder"></div>
         }
     </div>
 </div>
@@ -128,7 +126,7 @@
     }
 
     .T_element {
-        transition: ease-in-out 0.2s;
+        transition: transform ease-in-out 0.2s;
         height: 300px;
         border-radius: 12px;
         text-align: center;
@@ -149,6 +147,8 @@
         width: 100%;
         height: 50%;
         background: #1b1b1b;
+        background-size: cover !important;
+        background-position: center !important;
         position: relative;
     }
 
@@ -180,6 +180,14 @@
 
             .T_element-info div span {
                 color: #d6d6d6;
-                margin-left: 12px;
+                position: relative;
+                width: 100%;
+            }
+
+            .T_element-info div span img{
+                color: #d6d6d6;
+                position: absolute;
+                left: 10px;
+                height: 20px;
             }
 </style>

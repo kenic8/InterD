@@ -8,11 +8,22 @@
     <div id="BracketContainer">
 
     </div>
+    <div class="controls-helper">
+        <div class="CenterWrap" onclick="Recenter()">
+            <img src="/images/assets/icons/recenter.png" />
+            <p>Re-Center</p>
+        </div>
+        <p class="helpertext">Shift + Mousewheel to zoom</p>
+    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-    let bracketTemplate = { "Temp1": [{ "x": 0, "y": 0, "h": 120, "w": -110, "dir": "END", "Next": 0 }], "Temp2": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R", "Next": 2 }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L", "Next": 2 }, { "x": 110, "y": 120, "h": 120, "w": "", "dir": "END", "Next": 0 }], "Temp3": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R", "Next": 3 }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L", "Next": 3 }, { "x": 440, "y": 0, "h": 240, "w": 165, "dir": "L", "Next": 4 }, { "x": 110, "y": 120, "h": 120, "w": 165, "dir": "R", "Next": 4 }, { "x": 275, "y": 240, "h": 120, "w": "", "dir": "END", "Match": 2 }], "Temp4": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R", "Match": 0 }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L", "Match": 0 }, { "x": 440, "y": 0, "h": 120, "w": 110, "dir": "R", "Match": 0 }, { "x": 660, "y": 0, "h": 120, "w": 110, "dir": "L", "Match": 0 }, { "x": 110, "y": 120, "h": 120, "w": 220, "dir": "R", "Match": 1 }, { "x": 550, "y": 120, "h": 120, "w": 220, "dir": "L", "Match": 1 }, { "x": 330, "y": 240, "h": 0, "w": "", "dir": "END", "Match": 2 }], "Temp5": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R", "Match": 0 }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L", "Match": 0 }, { "x": 440, "y": 0, "h": 120, "w": 110, "dir": "R", "Match": 0 }, { "x": 660, "y": 0, "h": 120, "w": 110, "dir": "L", "Match": 0 }, { "x": 880, "y": 0, "h": 240, "w": 165, "dir": "L", "Match": 0 }, { "x": 110, "y": 120, "h": 240, "w": 302.5, "dir": "R", "Match": 1 }, { "x": 550, "y": 120, "h": 120, "w": 165, "dir": "R", "Match": 1 }, { "x": 715, "y": 240, "h": 120, "w": 302.5, "dir": "L", "Match": 2 }, { "x": 412.5, "y": 360, "h": 120, "w": "", "dir": "END", "Match": 3 }], "Temp6": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 440, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 660, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 880, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 1100, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 110, "y": 120, "h": 120, "w": 220, "dir": "R" }, { "x": 550, "y": 120, "h": 120, "w": 220, "dir": "L" }, { "x": 990, "y": 120, "h": 240, "w": 330, "dir": "L" }, { "x": 330, "y": 240, "h": 120, "w": 330, "dir": "R" }, { "x": 660, "y": 360, "h": 120, "w": "", "dir": "END" }], "Temp7": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 440, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 660, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 880, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 1100, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 1320, "y": 0, "h": 240, "w": 165, "dir": "L" }, { "x": 110, "y": 120, "h": 120, "w": 220, "dir": "R" }, { "x": 550, "y": 120, "h": 120, "w": 220, "dir": "L" }, { "x": 990, "y": 120, "h": 120, "w": 165, "dir": "R" }, { "x": 330, "y": 240, "h": 120, "w": 412.5, "dir": "R" }, { "x": 1155, "y": 240, "h": 120, "w": 412.5, "dir": "L" }, { "x": 742.5, "y": 360, "h": 120, "w": "", "dir": "END" }], "Temp8": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 440, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 660, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 880, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 1100, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 1320, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 1540, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 110, "y": 120, "h": 120, "w": 330, "dir": "R" }, { "x": 550, "y": 120, "h": 120, "w": 330, "dir": "L" }, { "x": 990, "y": 120, "h": 120, "w": 220, "dir": "R" }, { "x": 1430, "y": 120, "h": 120, "w": 220, "dir": "L" }, { "x": 330, "y": 240, "h": 120, "w": 440, "dir": "R" }, { "x": 1210, "y": 240, "h": 120, "w": 440, "dir": "L" }, { "x": 770, "y": 360, "h": 120, "w": "", "dir": "END" }] }
+
+    document.querySelector("head").innerHTML = `<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">`
+
+
+    let bracketTemplate = { "Temp1": [{ "x": 0, "y": 0, "h": 0, "w": -110, "dir": "END", "Next": 0 }], "Temp2": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R", "Next": 2 }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L", "Next": 2 }, { "x": 110, "y": 120, "h": 0, "w": "", "dir": "END", "Next": 0 }], "Temp3": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R", "Next": 3 }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L", "Next": 3 }, { "x": 440, "y": 0, "h": 240, "w": 165, "dir": "L", "Next": 4 }, { "x": 110, "y": 120, "h": 120, "w": 165, "dir": "R", "Next": 4 }, { "x": 275, "y": 240, "h": 0, "w": "", "dir": "END", "Match": 2 }], "Temp4": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R", "Match": 0 }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L", "Match": 0 }, { "x": 440, "y": 0, "h": 120, "w": 110, "dir": "R", "Match": 0 }, { "x": 660, "y": 0, "h": 120, "w": 110, "dir": "L", "Match": 0 }, { "x": 110, "y": 120, "h": 120, "w": 220, "dir": "R", "Match": 1 }, { "x": 550, "y": 120, "h": 120, "w": 220, "dir": "L", "Match": 1 }, { "x": 330, "y": 240, "h": 0, "w": "", "dir": "END", "Match": 2 }], "Temp5": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R", "Match": 0 }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L", "Match": 0 }, { "x": 440, "y": 0, "h": 120, "w": 110, "dir": "R", "Match": 0 }, { "x": 660, "y": 0, "h": 120, "w": 110, "dir": "L", "Match": 0 }, { "x": 880, "y": 0, "h": 240, "w": 165, "dir": "L", "Match": 0 }, { "x": 110, "y": 120, "h": 240, "w": 302.5, "dir": "R", "Match": 1 }, { "x": 550, "y": 120, "h": 120, "w": 165, "dir": "R", "Match": 1 }, { "x": 715, "y": 240, "h": 120, "w": 302.5, "dir": "L", "Match": 2 }, { "x": 412.5, "y": 360, "h": 0, "w": "", "dir": "END", "Match": 3 }], "Temp6": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 440, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 660, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 880, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 1100, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 110, "y": 120, "h": 120, "w": 220, "dir": "R" }, { "x": 550, "y": 120, "h": 120, "w": 220, "dir": "L" }, { "x": 990, "y": 120, "h": 240, "w": 330, "dir": "L" }, { "x": 330, "y": 240, "h": 120, "w": 330, "dir": "R" }, { "x": 660, "y": 360, "h": 0, "w": "", "dir": "END" }], "Temp7": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 440, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 660, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 880, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 1100, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 1320, "y": 0, "h": 240, "w": 165, "dir": "L" }, { "x": 110, "y": 120, "h": 120, "w": 220, "dir": "R" }, { "x": 550, "y": 120, "h": 120, "w": 220, "dir": "L" }, { "x": 990, "y": 120, "h": 120, "w": 165, "dir": "R" }, { "x": 330, "y": 240, "h": 120, "w": 412.5, "dir": "R" }, { "x": 1155, "y": 240, "h": 120, "w": 412.5, "dir": "L" }, { "x": 742.5, "y": 360, "h": 0, "w": "", "dir": "END" }], "Temp8": [{ "x": 0, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 220, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 440, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 660, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 880, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 1100, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 1320, "y": 0, "h": 120, "w": 110, "dir": "R" }, { "x": 1540, "y": 0, "h": 120, "w": 110, "dir": "L" }, { "x": 110, "y": 120, "h": 120, "w": 330, "dir": "R" }, { "x": 550, "y": 120, "h": 120, "w": 330, "dir": "L" }, { "x": 990, "y": 120, "h": 120, "w": 220, "dir": "R" }, { "x": 1430, "y": 120, "h": 120, "w": 220, "dir": "L" }, { "x": 330, "y": 240, "h": 120, "w": 440, "dir": "R" }, { "x": 1210, "y": 240, "h": 120, "w": 440, "dir": "L" }, { "x": 770, "y": 360, "h": 0, "w": "", "dir": "END" }] }
 
     let userIDString = '@ViewBag.User';
 
@@ -164,6 +175,7 @@
     }
 
     function GeneratePlacements(players) {
+        let istherewinner = false;
         for (let u = 0; u < TeamsArray.length; u++) {
             let MatchPattern = patternTemplate[`temp${players}`][u].split(',');
 
@@ -174,6 +186,7 @@
 
             if (MatchPattern[TeamsArray[u].matchWins] == MatchPattern[MatchPattern.length - 1]) {
                 document.getElementById(`M${Teams.player1.Index}`).classList.add("Winner")
+                istherewinner = true;
             }
 
             for (let i = 0; i <= TeamsArray[u].matchWins; i++) {
@@ -186,6 +199,20 @@
                 if (TeamsArray[u].lostGame) {
                     document.getElementById(`M${MatchPattern[i]}`).classList.add("Out")
                 }
+            }
+        }
+        if (istherewinner) {
+            findWinPath();
+        }
+    }
+
+    function findWinPath() {
+        let wons = document.getElementsByClassName("Won");
+        for (let i = 0; i < wons.length; i++) {
+            if (wons[i].classList.contains("Out")) {
+                console.log("dada")
+            } else {
+                wons[i].classList.add("Winpath")
             }
         }
     }
@@ -248,7 +275,7 @@
         if (isEmpty()) {
             document.getElementById("Update-MessageWrap").innerHTML = `<p>Update</p>`
         } else {
-            document.getElementById("Update-MessageWrap").innerHTML = `<p>NEEDS UPDATE</p>`
+            document.getElementById("Update-MessageWrap").innerHTML = `<div class="updateTextWrap"><img src="/images/assets/icons/alert.png" /><p>Needs update!</p></div>`
         }
     }
 
@@ -276,15 +303,15 @@
 
 
 
-    //$(window).resize(function () {
-    //    let scrolltopos = ($("#Tcontainer").width() / 2)
-    //    let scrollMinus = (scrolltopos - (window.innerWidth / 2))
-    //    $(window).scrollLeft(scrollMinus)
+    ////$(window).resize(function () {
+    ////    let scrolltopos = ($("#Tcontainer").width() / 2)
+    ////    let scrollMinus = (scrolltopos - (window.innerWidth / 2))
+    ////    $(window).scrollLeft(scrollMinus)
 
-    //    let scrolltoposW = ($("#Tcontainer").height() / 2)
-    //    let scrollMinusW = (scrolltoposW - (window.innerHeight / 2))
-    //    $(window).scrollLeft(scrollMinusW)
-    //});
+    ////    let scrolltoposW = ($("#Tcontainer").height() / 2)
+    ////    let scrollMinusW = (scrolltoposW - (window.innerHeight / 2))
+    ////    $(window).scrollLeft(scrollMinusW)
+    ////});
 
     let zoomamount = 1;
     let enableZoom = false;
@@ -311,6 +338,14 @@
             $('#BracketContainer').css("transform", "translate(" + tranfx + "px, " + tranfy + "px) scale(" + zoomamount + ")");
         }
     });
+
+    function Recenter() {
+        pos = { top: 0, left: 0, x: 0, y: 0 };
+        zoomamount = 1;
+        tranfx = -($("#BracketContainer").width() / 2)
+        tranfy = -($("#BracketContainer").height() / 2)
+        $('#BracketContainer').css("transform", "translate(" + tranfx + "px, " + tranfy + "px) scale(" + zoomamount + ")");
+    }
 
         // drag controls
     const ele = document.getElementById("Tcontainer")
@@ -370,7 +405,51 @@
 </script>
 
 <style>
+
+    .helpertext {
+        font-size: 14;
+        color: #ffffffb8 !important;
+        margin-top: 10px !important;
+    }
+
+    .controls-helper p {
+        margin: 0;
+    }
+
+    .controls-helper {
+        position: absolute;
+        top: 14px;
+        left: 16px;
+        color: white;
+    }
+
+    .CenterWrap {
+        height: 40px;
+        align-items: center;
+        display: flex;
+        cursor: pointer;
+    }
+
+        .CenterWrap img {
+            height: 20px;
+            margin-right: 8px;
+        }
+
+    .updateTextWrap {
+        display: flex;
+    }
+
+    .updateTextWrap img{
+    height: 18px !important;
+    transform: translateY(2px) !important;
+    }
+
+    * {
+        font-family: 'Lato', sans-serif;
+    }
+
     .update-wrap {
+        height: 40px;
         position: absolute;
         right: 12px;
         top: 14px;
@@ -382,13 +461,13 @@
     }
 
     .update-wrap p{
-        font-size: 20px;
         margin: 0;
         color: white;
     }
 
     .update-wrap img{
-        height: 28px;
+        transform: translateY(1px);
+        height: 20px;
         margin: 0 8px;
     }
 
@@ -447,7 +526,7 @@
 
         .player p {
             position: absolute;
-            transform: translate(-50%, -0%);
+            transform: translate(-50%, -12%);
             left: 50%;
             margin: 0;
             top: 100%;
@@ -518,6 +597,7 @@
     }
 
         .Out div {
+            background: #215f49 !important;
         }
 
     .Won {
@@ -530,10 +610,19 @@
         }
 
     .Winner {
-        background: yellow !important;
+        background: url("/images/assets/brackets/WinContainer.gif") !important;
+        box-shadow: 0px 0px 0px 1px #def73e, 0px 0px 74px 0px #e8cf1785, 2px 2px 6px 0px #000000a6 !important;
     }
 
         .Winner div {
-            background: yellow !important;
+            background: yellow;
+        }
+
+    .Winpath {
+        box-shadow: 0px 0px 0px 1px #def73e, 2px 2px 6px 0px #000000a6 !important;
+    }
+
+        .Winpath div {
+            background: #def73e !important;
         }
 </style>

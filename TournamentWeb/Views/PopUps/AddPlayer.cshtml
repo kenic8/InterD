@@ -6,7 +6,7 @@
 
         </div>
         <div class="invitelink">
-            <p>@("http://localhost:44881/Tournaments/AddPlayer/" + TempData["id1"] + "?TeamId=" + TempData["id2"])</p>
+            <p>@TempData["id4"]</p>
         </div>
     </div>
 </div>
@@ -17,7 +17,7 @@
         document.getElementsByClassName("Inv-Wrap")[0].style.background = "#2fe8a7"
         var elem = document.createElement("textarea");
         document.body.appendChild(elem);
-        elem.value = "@("http://localhost:44881/Tournaments/AddPlayer/" + TempData["id1"] + "?TeamId=" + TempData["id2"])"
+        elem.value = "@TempData["id4"]"
         elem.select();
         document.execCommand("copy");
         document.body.removeChild(elem);

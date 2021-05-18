@@ -34,14 +34,18 @@
 
                 <div class="L_element-info">
 
-                    <div><span> <img class="Icon" src="~/images/assets/Landing/att.png" />@T.ParticipantsAmount&nbsp;&nbsp; </span></div>
+                    <div><span> <img class="Icon" src="~/images/assets/Landing/att.png" />@T.ParticipantsAmount</span></div>
                     <div><span> <img class="Icon" src="~/images/assets/Landing/teams.png" /> @T.Teams.Count / @T.Bracketsize</span></div>
-                    <div><span><img class="Icon" src="~/images/assets/Landing/dateicon.png" /> @T.TimeFrame</span></div>
+                    <div><span><img class="Icon" src="~/images/assets/Landing/dateicon.png" /> @T.TimeFrame.ToString("dd/MM HH:mm")</span></div>
 
                 </div>
             </a>
         }
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="search-placeholder"></div>
         }
+        
 
     </div>
 
@@ -73,14 +77,17 @@
 
                 <div class="L_element-info">
 
-                    <div><span><img class="Icon" src="~/images/assets/Landing/att.png" /> @T.ParticipantsAmount &nbsp;&nbsp; </span></div>
+                    <div><span><img class="Icon" src="~/images/assets/Landing/att.png" /> @T.ParticipantsAmount </span></div>
                     <div><span> <img class="Icon" src="~/images/assets/Landing/teams.png" /> @T.Teams.Count / @T.Bracketsize</span></div>
-                    <div><span><img class="Icon" src="~/images/assets/Landing/dateicon.png" /> @T.TimeFrame</span></div>
+                    <div><span><img class="Icon" src="~/images/assets/Landing/dateicon.png" /> @T.TimeFrame.ToString("dd/MM HH:mm")</span></div>
 
                 </div>
             </a>
         }
-
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="search-placeholder"></div>
+        }
 
     </div>
 </div>
@@ -102,9 +109,16 @@
         margin: 12px 0 120px 0;
     }
 
+    .search-placeholder {
+        height: 0px;
+        margin: 12px;
+        flex-basis: 200px;
+        flex-grow: 1;
+    }
+
 
     .L_element {
-        transition: ease-in-out 0.2s;
+        transition: transform ease-in-out 0.2s;
         height: 300px;
         border-radius: 12px;
         text-align: center;
@@ -114,7 +128,6 @@
         background: #1c2123;
         overflow: hidden;
         box-shadow: 2px 2px 4px 0px #00000061;
-        max-width: 260px;
     }
 
         .L_element:hover {
@@ -125,6 +138,8 @@
         width: 100%;
         height: 50%;
         background: #1b1b1b;
+        background-size: cover !important;
+        background-position: center !important;
         position: relative;
     }
 
@@ -156,8 +171,15 @@
 
             .L_element-info div span {
                 color: #d6d6d6;
-                margin-left: 12px;
-                float:left;
+                position: relative;
+                width: 100%;
+            }
+
+            .L_element-info div span img{
+                color: #d6d6d6;
+                position: absolute;
+                left: 10px;
+                height: 20px;
             }
 </style>
 

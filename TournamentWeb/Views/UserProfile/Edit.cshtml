@@ -26,10 +26,12 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="ProfileImageFile" class="form-label">Add new Profile Picture</label>
-                    <input asp-for="ProfileImageFile" class="form-control" type="file">
+                    <input asp-for="ProfileImageFile" class="form-control form-file" type="file">
                 </div>
-                <button type="submit">Save</button>
-                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                <div class="form-submit-left">
+                    <button type="submit">Save</button>
+                    <a asp-action="Index">Cancel</a>
+                </div>
             </form>
         </div>
     </div>

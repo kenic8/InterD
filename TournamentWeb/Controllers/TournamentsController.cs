@@ -276,7 +276,7 @@ namespace TournamentWeb.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
             ///queries
-            var queryT = _context.Tournament.Include(b => b.Teams).ThenInclude(u => u.Attendees).Take(8).OrderByDescending(c => c.TimeFrame.Date).ThenBy(c => c.TimeFrame.TimeOfDay).ToList();
+            var queryT = _context.Tournament.Include(b => b.Teams).ThenInclude(u => u.Attendees).Take(20).OrderByDescending(c => c.TimeFrame.Date).ThenBy(c => c.TimeFrame.TimeOfDay).ToList();
 
             foreach (var T in queryT)
             {
