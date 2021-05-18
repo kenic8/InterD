@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\assets\Landing\" />
     <Folder Include="wwwroot\images\teams\" />
     <Folder Include="wwwroot\images\tournaments\" />
     <Folder Include="wwwroot\images\profile\" />

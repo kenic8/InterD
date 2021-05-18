@@ -9,12 +9,12 @@
         <div class="Landing-Hero-Content">
             <div class="Landing-Hero-Text">
                 <p>
-                    Some text Some text Some text Some text Some text Some text Some text
+                    Create or Join a tournament! Just Have Fun!
                 </p>
             </div>
             <div class="Landing-Hero-Actions">
-                <a class="button-Type1">Create Tournament</a>
-                <a class="button-Type2">Get Started</a>
+                <a  asp-area="" asp-controller="Tournaments" asp-action="Index" class="button-Type1">Take a look!</a>
+                <a  asp-area="" asp-controller="Addtournament" asp-action="AddTournament"  class="button-Type2">Get Started</a>
             </div>
         </div>
     </section>
@@ -57,13 +57,15 @@
     .Landing-Hero-Text {
         color: white;
         text-align: center;
-        width: 500px;
+        font-size:1.7em;
+        width: 550px;
     }
 
     .Landing-Hero-Actions {
         color: white;
         text-align: center;
         margin-top: 24px;
+        font-size:2em;
     }
 
     .Landing-info {

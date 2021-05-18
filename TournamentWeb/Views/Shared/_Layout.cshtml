@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -16,7 +17,8 @@
                 </div>
                 <div class="navbar-content">
                     <a asp-area="" asp-controller="Tournaments" asp-action="Index">Tournaments</a>
-                    <a asp-area="" asp-controller="Addtournament" asp-action="AddTournament"> Create Tournament</a>
+                    <a asp-area="" asp-controller="Addtournament" asp-action="AddTournament"> Create </a>
+                    <a asp-area="" asp-controller="UserProfile" asp-action="Index"> Profile</a>
                 </div>
                 <div class="navbar-content-user">
                     @if (User?.Identity?.IsAuthenticated ?? false)
@@ -74,7 +76,7 @@
             </div>
             <div class="footer-social">
                 <p>Social</p>
-                <a></a>
+                <a> <img src="~/images/assets/discord-48.png" /></a>
             </div>
         </div>
     </footer>

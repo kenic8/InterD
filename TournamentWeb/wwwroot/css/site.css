@@ -1,4 +1,9 @@
 ﻿/*OverAll*/
+
+
+* {
+    font-family:'Lato', sans-serif;
+}
 html {
     position: relative;
     min-height: 100%;

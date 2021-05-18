@@ -275,15 +275,28 @@ namespace TournamentWeb.Controllers
 
         public async Task<IActionResult> Index(string searchString)
         {
-            var Tournaments = from m in _context.Tournament
-                         select m;
+            ///queries
+            var queryT = _context.Tournament.Include(b => b.Teams).ThenInclude(u => u.Attendees).Take(8).OrderByDescending(c => c.TimeFrame.Date).ThenBy(c => c.TimeFrame.TimeOfDay).ToList();
+
+            foreach (var T in queryT)
+            {
+                foreach (var att in T.Teams)
+                {
+
+                    T.ParticipantsAmount += att.Attendees.Count;
+
+                }
+            }
+          
+            var Tournaments = from m in queryT
+                              select m;
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 Tournaments = Tournaments.Where(s => s.TournamentName.Contains(searchString));
             }
 
-            return View(await Tournaments.ToListAsync());
+            return View(Tournaments.ToList());
         }
 
         private Task<AppUser> CurrentUser =>
