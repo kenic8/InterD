@@ -44,12 +44,16 @@
         </div>
     </div>*@
 
-<div class="bg-primary m-1 p-1 text-white">
-    Participants
-</div>
 
 
-<div class="Pcontainer">
+
+<div class="Pcontainer Page-Container">
+    <div class="PHeading">
+        <h2>Paricipants</h2>
+        <button class="TgoodButton" onclick="testfuck(@Model.TournamentId, 0, 0, 'CreateTeam')">
+            Join Tournament
+        </button>
+    </div>
     @foreach (var team in Model.Teams)
     {
         <div class="teamwrap">
@@ -59,8 +63,9 @@
                 {
                     @if (UserManager.GetUserId(User) == Attendee.UserID && Attendee.UserStatus == "TeamLeader")
                     {
+                        <div class="Addplayer" onclick="testfuck(@Model.TournamentId, @team.TeamId, 0, 'AddPlayer')">+</div>
                         <a asp-action="Delete" asp-route-id="@Model.TournamentId" asp-route-TeamId="@team.TeamId">
-                            <div class="btn btn-outline-danger btn-sm">Delete</div>
+                            <div class="T-EvilButtons">Delete Team</div>
                         </a>
                     }
                 }
@@ -68,40 +73,41 @@
             </div>
             @foreach (var Attendee in team.Attendees)
             {
-                <div class="AttendeeName">
-                    <p>
-                        @Html.DisplayFor(modelItem => Attendee.UserName)
-                        @if (Attendee.UserStatus == "TeamLeader")
-                        {
-                            <span>(TL)</span>
-                        }
-
-                    </p>
-                    @if (UserManager.GetUserId(User) == Attendee.UserID)
-                    {
-                        <a asp-action="RemovePlayer" asp-route-id="@Model.TournamentId" asp-route-TeamId="@team.TeamId">
-                            <div class="btn btn-outline-danger btn-sm">Leave</div>
-                        </a>
-                    }
-                    //WRONG
-                    else
-                    {
-                        @foreach (var AttendeeN in team.Attendees)
-                        {
-                            if (AttendeeN.UserStatus == "TeamLeader" && UserManager.GetUserId(User) == AttendeeN.UserID)
-                            {
-                                <a id="dadatest" asp-action="RemovePlayer" asp-route-id="@Model.TournamentId" asp-route-TeamId="@team.TeamId" asp-route-UserID="@Attendee.UserID">
-                                    <div class="btn btn-outline-danger btn-sm">Remove</div>
-                                </a>
-                            }
-                        }
-                    }
+        <div class="AttendeeName">
+            <p>
+                @Html.DisplayFor(modelItem => Attendee.UserName)
+            </p>
+            @if (Attendee.UserStatus == "TeamLeader")
+            {
+                <div class="TLIndicator">
+                    <img src="~/images/assets/icons/TeamLeader.png" />
                 </div>
             }
-            @for (int i = 0; i < 3 - team.Attendees.Count; i++)
+            @if (UserManager.GetUserId(User) == Attendee.UserID)
+            {
+                <a asp-action="RemovePlayer" asp-route-id="@Model.TournamentId" asp-route-TeamId="@team.TeamId">
+                    <div class="T-EvilButtons">Leave</div>
+                </a>
+            }
+            //WRONG
+            else
+            {
+                @foreach (var AttendeeN in team.Attendees)
+                {
+                    if (AttendeeN.UserStatus == "TeamLeader" && UserManager.GetUserId(User) == AttendeeN.UserID)
+                    {
+                        <a id="dadatest" asp-action="RemovePlayer" asp-route-id="@Model.TournamentId" asp-route-TeamId="@team.TeamId" asp-route-UserID="@Attendee.UserID">
+                            <div class="T-EvilButtons">Remove</div>
+                        </a>
+                    }
+                }
+            }
+        </div>
+            }
+            @for (int i = 0; i < 5 - team.Attendees.Count; i++)
             {
                 <div class="AttendeeName">
-                    <div id="UseShipAddr" onclick="testfuck(@Model.TournamentId, @team.TeamId, 0, 'AddPlayer')" class="btn btn-outline-primary btn-sm">Add</div>
+                    <div id="UseShipAddr" onclick="testfuck(@Model.TournamentId, @team.TeamId, 0, 'AddPlayer')">Empty</div>
                 </div>
             }
         </div>
@@ -109,9 +115,6 @@
 </div>
 
 
-<button class="btn btn-primary" onclick="testfuck(@Model.TournamentId, 0, 0, 'CreateTeam')">
-    Join Tournament
-</button>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -126,6 +129,66 @@
 
 
 <style>
+
+    .TLIndicator {
+        flex-grow: 1;
+        position: relative;
+    }
+
+    .TLIndicator img {
+        height: 20px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 45%;
+        left: 20px;
+    }
+
+    .TgoodButton {
+        width: 148px;
+        margin: 0 24px;
+        height: 34px;
+        background: #2a9670;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .PHeading {
+        height: 64px;
+        width: 100%;
+        background: #1c2123;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+    }
+
+    .PHeading h2 {
+        margin: 0 24px;
+    }
+
+    .Addplayer {
+        position: absolute;
+        color: #2fe8a7;
+        right: 0;
+        top: 0;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 0 12px;
+    }
+
+    .T-EvilButtons {
+        width: max-content;
+        padding: 1px 6px;
+        border-radius: 4px;
+        color: #fd5151;
+        color: white;
+        background: #fd5151;
+    }
 
     .Facontainer {
         background: #22282a;
@@ -146,12 +209,12 @@
 
     #balckdropBg {
         opacity: 1;
-        background-size: cover;
+        background-size: cover !important;
     }
 
     #balckdropOlay {
         background: rgb(22,26,28);
-        background: linear-gradient(0deg, rgba(22,26,28,1) 0%, rgba(22,26,28,0.95) 50%, rgba(22,26,28,0.9) 90%, rgba(22,26,28,0.8) 100%);
+        background: linear-gradient(0deg, rgba(22,26,28,1) 0%, rgba(22,26,28,0.95) 40%, rgba(22,26,28,0.9) 80%, rgba(22,26,28,0.8) 100%);
     }
 
     #balckdropTexture {
@@ -169,6 +232,7 @@
     }
 
     #Tcontainer {
+        margin-top: 24px;
         background: grey;
         height: 40vh;
         width: 100%;
@@ -177,39 +241,46 @@
 
     .Pcontainer {
         height: auto;
-        width: 100%;
         display: flex;
         flex-wrap: wrap;
+        margin: 24px 0 84px 0 ;
     }
 
     .teamwrap {
-        width: 200px;
-        border: 1px solid lightblue;
+        width: 254px;
         height: max-content;
         margin: 12px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 0px 0px 1px #2fe8a7, 2px 2px 8px 0 black;
     }
 
-    .AttendeeName:nth-child(even) {
-        background: #add8e642;
+    .AttendeeName:nth-child(odd) {
+        background: #1c2123;
     }
 
     .teamName {
+        position: relative;
         color: white;
-        background: lightblue;
+        background: #1c2123;
         padding: 8px;
+        border-bottom: 2px solid #2fe8a7;
     }
 
         .teamName p {
             margin: 0 0 8px 0;
+            font-weight: bold;
+            font-size: 18px;
         }
 
     .AttendeeName {
         color: grey;
         display: flex;
-        justify-content: space-between
+        justify-content: space-between;
+        padding: 6px 8px;
     }
 
-        .AttendeeName p {
-            margin: 0 0 0 4px;
-        }
+    .AttendeeName p{
+        margin: 0;
+    }
 </style>

@@ -1,54 +1,108 @@
-﻿
-@{
-    ViewData["Title"] = "View";
-}
-@{
+﻿@{
+    string imgstring = "";
+
     if (ViewBag.CreatedTournaments.Count != 0)
-        {
-            <p>Your Tournaments created</p>
-
-            @foreach (var T in ViewBag.CreatedTournaments)
-            {
-               
-                        @if (T.TournamentImage != null)
-                        {
-                            
-                            <img src="/images/tournaments/@T.TournamentImage">
-                        }
-                   
-                            
-                            <h2>@T.TournamentName</h2>
-                            <p>@T.TimeFrame</p>
-                       
-            }
-        }
-
-    @*if (ViewBag.joinedTournaments.Count != 0)
     {
-        <p>Your joined tournaments</p>
-        @foreach (var f in ViewBag.joinedTournaments)
+        <p class="side-heading">Created Tournaments:</p>
+
+        @foreach (var T in ViewBag.CreatedTournaments)
         {
-            <a class="flex-inner" href="#" style="text-decoration:none">
-                <div class="side1">
-                    @if (f.TournamentImage != null)
-                    {
-                        <img src="/images/tournaments/@f.TournamentImage">
-                    }
-                </div>
-                <div class="side2">
-                    <h2>@f.TournamentName</h2>
-                    <p>@f.TimeFrame</p>
+            if (@T.TournamentImage != null)
+            {
+                imgstring = "/images/tournaments/" + @T.TournamentImage + "";
+            }
+            else
+            {
+                imgstring = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fassets.gamepur.com%2Fwp-content%2Fuploads%2F2021%2F01%2F05145757%2Frocket-league-F.jpg&f=1&nofb=1";
+            }
+            <a href="/Tournaments/OverView/@T.TournamentId">
+                <div class="Side-Torunament-Element">
+                    <div class="Side-Torunament-img" style="background: url(@imgstring)">
+                        <p class="Side-Torunament-name">@T.TournamentName</p>
+                    </div>
+                    <p class="Side-Torunament-timeframe">@T.TimeFrame</p>
                 </div>
             </a>
-            }
         }
+    }
+
+    if (ViewBag.joinedTournaments.Count != 0)
+    {
+        <p class="side-heading side-heading-second">Joined tournaments:</p>
+        @foreach (var T in ViewBag.joinedTournaments)
+        {
+            if (@T.TournamentImage != null)
+            {
+                imgstring = "/images/tournaments/" + @T.TournamentImage + "";
+            }
+            else
+            {
+                imgstring = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fassets.gamepur.com%2Fwp-content%2Fuploads%2F2021%2F01%2F05145757%2Frocket-league-F.jpg&f=1&nofb=1";
+            }
+            <a href="/Tournaments/OverView/@T.TournamentId">
+                <div class="Side-Torunament-Element">
+                    <div class="Side-Torunament-img" style="background: url(@imgstring)">
+                        <p class="Side-Torunament-name">@T.TournamentName</p>
+                    </div>
+                    <p class="Side-Torunament-timeframe">@T.TimeFrame</p>
+                </div>
+            </a>
+        }
+    }
     else
     {
-        <p> No active tournaments</p>
-    }*@
+        <p class="side-heading"> No active tournaments</p>
+    }
 }
 
 
+<style>
+    .Side-Torunament-Element {
+        margin: 18px 0;
+        box-shadow: 0px 0px 0px 1px #2ee4a466, 0 0 10px 10px black;
+    }
 
+    .Side-Torunament-img {
+        width: 100%;
+        background-size: 250px;
+        background-position: center;
+        height: 100px;
+        position: relative;
+    }
+
+    .Side-Torunament-name {
+        position: absolute;
+        padding: 4px 0;
+        background: #0000008c;
+        color: white;
+        margin: 0;
+        text-align: center;
+        bottom: 0;
+        width: 100%;
+        white-space: nowrap;
+    }
+
+    .Side-Torunament-timeframe {
+        margin: 0;
+        background: #00000073;
+        text-align: center;
+        padding: 2px 0;
+        font-size: 14px;
+        color: #2ee4a4;
+        white-space: nowrap;
+    }
+
+    .side-heading {
+        font-weight: bold;
+        font-size: 18px;
+        position: relative;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .side-heading-second {
+        margin-top: 64px;
+    }
+</style>
 
 

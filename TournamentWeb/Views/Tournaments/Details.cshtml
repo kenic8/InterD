@@ -11,18 +11,46 @@
     }
 
 }
+<div class="TheroOpening"></div>
 <section class="Page-Container TinfoSection">
+    <h1 class="TinfoHeader">@Model.TournamentName</h1>
+    <p class="Tinfotime">@Model.TimeFrame</p>
+    <p>@Model.TournamentInfo</p>
+    <p>Contact: <a href="">Discord</a></p>
 </section>
 
 <style>
-    .TDetailsHero {
-        height: 20vh;
+    .TinfoHeader {
+        margin: 24px 0 0 0;
+        font-size: 32px;
+    }
+
+    .Tinfotime {
+        color: #2ee4a4;
+        margin: 0;
+        font-size: 12px;
+    }
+
+    .TheroOpening {
+        height: 300px;
         width: 100%;
-        background: black;
+        background: radial-gradient(circle, rgba(2,0,36,0) 0%, rgb(0 0 0 / 44%) 100%);
+        position: relative;
+    }
+    .TDetailsHero {
+        height: 354px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-size: cover !important;
+        background-position: center !important;
     }
 
     .TinfoSection {
+        background: #22282a;
+        position: relative;
+        z-index: 1;
         height: max-content;
-        min-height: calc(80vh - 54px)
+        min-height: calc(100vh - 400px)
     }
 </style>

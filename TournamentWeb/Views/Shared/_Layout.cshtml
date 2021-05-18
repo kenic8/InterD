@@ -37,19 +37,21 @@
         </nav>
     </header>
     <div class="Facontainer">
-        <div id="Sidebar">
-            @if (User?.Identity?.IsAuthenticated ?? false)
+        @if (User?.Identity?.IsAuthenticated ?? false)
         {
-            @await Component.InvokeAsync("UserTournaments")
-        }
-            <div class="sidebarTrigger" onclick="ToggleSideBar()">
-                <div class="sidebarTrigger-Indicator"></div>
+            <div id="Sidebar">
+
+                @await Component.InvokeAsync("UserTournaments")
+   
+                <div class="sidebarTrigger" onclick="ToggleSideBar()">
+                    <div class="sidebarTrigger-Indicator"></div>
+                </div>
             </div>
+        }
+            <main role="main" class="Page">
+                @RenderBody()
+            </main>
         </div>
-        <main role="main" class="Page">
-            @RenderBody()
-        </main>
-    </div>
 
     <footer>
         <div class="footer-container">
@@ -122,8 +124,10 @@
 
     #Sidebar {
         position:relative;
-        z-index: 1;
+        z-index: 2;
         transition: min-width ease-out 0.2s;
+        width: 0;
+        overflow: hidden;
         min-width: 0px;
         box-shadow: 1px 0px 0px 0px #2fe8a747, 0px 0px 18px 0px #00000045;
         background: #00000082;
@@ -141,7 +145,7 @@
         width: 14px;
         background: #2fe8a7;
         transform: translate(-50%, -50%);
-        left: 12px;
+        left: 8px;
         border-radius: 0px 8px 8px 0px;
         position: fixed;
         top: 50vh;
