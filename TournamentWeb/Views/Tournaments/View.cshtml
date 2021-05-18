@@ -1,0 +1,215 @@
+﻿@model TournamentWeb.Models.Tournament
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@using Microsoft.AspNetCore.Identity;
+
+
+@{
+    string bracketLindk = "http://" + "localhost:44881/Bracket/Index/" + Model.TournamentId + "?User=" + UserManager.GetUserId(User);
+}
+
+
+@*<h1>
+        @Model.TournamentName
+    </h1>*@
+
+@{
+    if (ViewBag.error != null)
+    {
+        <div id="errorLoader"></div>
+    };
+}
+
+<div id="iframwrap">
+    @{
+        if (@Model.TournamentImage != null)
+        {
+            <div id="balckdropBg" style="background: url(/images/tournaments/@Model.TournamentImage)"></div>
+        } 
+        else
+        {
+            <div id="balckdropBg" style="background: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fassets.gamepur.com%2Fwp-content%2Fuploads%2F2021%2F01%2F05145757%2Frocket-league-F.jpg&f=1&nofb=1);"></div>
+        }
+
+    }
+    <div id="balckdropOlay"></div>
+    <div id="balckdropTexture"></div>
+    <iframe src="@bracketLindk" frameBorder="0" scrolling="no" allowTransparency="true"></iframe>
+</div>
+
+
+@*<div id="Tcontainer" data-torunamentID="@Model.TournamentId">
+        <div id="BracketContainer">
+
+        </div>
+    </div>*@
+
+<div class="bg-primary m-1 p-1 text-white">
+    Participants
+</div>
+
+
+<div class="Pcontainer">
+    @foreach (var team in Model.Teams)
+    {
+        <div class="teamwrap">
+            <div class="teamName">
+                <p>@Html.DisplayFor(modelItem => team.TeamName)</p>
+                @foreach (var Attendee in team.Attendees)
+                {
+                    @if (UserManager.GetUserId(User) == Attendee.UserID && Attendee.UserStatus == "TeamLeader")
+                    {
+                        <a asp-action="Delete" asp-route-id="@Model.TournamentId" asp-route-TeamId="@team.TeamId">
+                            <div class="btn btn-outline-danger btn-sm">Delete</div>
+                        </a>
+                    }
+                }
+
+            </div>
+            @foreach (var Attendee in team.Attendees)
+            {
+                <div class="AttendeeName">
+                    <p>
+                        @Html.DisplayFor(modelItem => Attendee.UserName)
+                        @if (Attendee.UserStatus == "TeamLeader")
+                        {
+                            <span>(TL)</span>
+                        }
+
+                    </p>
+                    @if (UserManager.GetUserId(User) == Attendee.UserID)
+                    {
+                        <a asp-action="RemovePlayer" asp-route-id="@Model.TournamentId" asp-route-TeamId="@team.TeamId">
+                            <div class="btn btn-outline-danger btn-sm">Leave</div>
+                        </a>
+                    }
+                    //WRONG
+                    else
+                    {
+                        @foreach (var AttendeeN in team.Attendees)
+                        {
+                            if (AttendeeN.UserStatus == "TeamLeader" && UserManager.GetUserId(User) == AttendeeN.UserID)
+                            {
+                                <a id="dadatest" asp-action="RemovePlayer" asp-route-id="@Model.TournamentId" asp-route-TeamId="@team.TeamId" asp-route-UserID="@Attendee.UserID">
+                                    <div class="btn btn-outline-danger btn-sm">Remove</div>
+                                </a>
+                            }
+                        }
+                    }
+                </div>
+            }
+            @for (int i = 0; i < 3 - team.Attendees.Count; i++)
+            {
+                <div class="AttendeeName">
+                    <div id="UseShipAddr" onclick="testfuck(@Model.TournamentId, @team.TeamId, 0, 'AddPlayer')" class="btn btn-outline-primary btn-sm">Add</div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+
+<button class="btn btn-primary" onclick="testfuck(@Model.TournamentId, 0, 0, 'CreateTeam')">
+    Join Tournament
+</button>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    if ($('#errorLoader').length) {
+        $("#errorLoader").ready(function () {
+            testfuck(0, 0, 0, "@ViewBag.error");
+        })
+    }
+
+</script>
+
+
+<style>
+
+    .Facontainer {
+        background: #22282a;
+    }
+
+    #iframwrap {
+        position: relative;
+        width: 100%;
+        height: 70vh;
+    }
+
+        #iframwrap div {
+            z-index: 0;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+
+    #balckdropBg {
+        opacity: 1;
+        background-size: cover;
+    }
+
+    #balckdropOlay {
+        background: rgb(22,26,28);
+        background: linear-gradient(0deg, rgba(22,26,28,1) 0%, rgba(22,26,28,0.95) 50%, rgba(22,26,28,0.9) 90%, rgba(22,26,28,0.8) 100%);
+    }
+
+    #balckdropTexture {
+        background: url(/images/assets/brackets/grid.jpg);
+        mix-blend-mode: multiply;
+        background-size: 64px;
+        opacity: 0.3;
+    }
+
+
+    iframe {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
+    #Tcontainer {
+        background: grey;
+        height: 40vh;
+        width: 100%;
+    }
+
+
+    .Pcontainer {
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .teamwrap {
+        width: 200px;
+        border: 1px solid lightblue;
+        height: max-content;
+        margin: 12px;
+    }
+
+    .AttendeeName:nth-child(even) {
+        background: #add8e642;
+    }
+
+    .teamName {
+        color: white;
+        background: lightblue;
+        padding: 8px;
+    }
+
+        .teamName p {
+            margin: 0 0 8px 0;
+        }
+
+    .AttendeeName {
+        color: grey;
+        display: flex;
+        justify-content: space-between
+    }
+
+        .AttendeeName p {
+            margin: 0 0 0 4px;
+        }
+</style>

@@ -20,7 +20,7 @@
         {
             if (i < Model.Count())
             {
-                <a class="T_element" asp-action="Details" asp-route-id="@Model.ElementAt(i).TournamentId">
+                <a class="T_element" asp-action="OverView" asp-route-id="@Model.ElementAt(i).TournamentId">
                     <div class="T_element-backdrop">
                         <span>@Html.DisplayFor(modelItem => Model.ElementAt(i).TournamentName)</span>
                     </div>

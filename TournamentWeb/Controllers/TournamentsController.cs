@@ -60,7 +60,7 @@ namespace TournamentWeb.Controllers
                 error = "Error-PlayerIsInTournament";
             }
             // display message? succes or not?
-            return RedirectToAction("Details", new { id = id, error = error });
+            return RedirectToAction("View", new { id = id, error = error });
         }
 
 
@@ -99,7 +99,7 @@ namespace TournamentWeb.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("View", new { id = id });
 
         }
 
@@ -126,7 +126,7 @@ namespace TournamentWeb.Controllers
 
             // Dosnt delete in database only "unlinks" / fix with query string delete where id = NULL or something
             _context.SaveChanges();
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("View", new { id = id });
         }
 
         
@@ -207,13 +207,13 @@ namespace TournamentWeb.Controllers
             TournamentToUpdate.Teams.Add(Team);
             _context.SaveChanges();
 
-            return RedirectToAction("Details", new { id = id, error = error });
+            return RedirectToAction("View", new { id = id, error = error });
         }
 
 
 
 
-        public async Task<IActionResult> Details(int? id, string error)
+        public async Task<IActionResult> OverView(int? id, string error)
         {
             if (id == null)
             {
@@ -232,6 +232,46 @@ namespace TournamentWeb.Controllers
             }
             return View(Tournament);
         }
+
+        public async Task<IActionResult> View(int? id, string error)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.error = error;
+
+            var Tournament = await _context.Tournament.Include(i => i.Teams)
+                .ThenInclude(u => u.Attendees)
+                .FirstOrDefaultAsync(i => i.TournamentId == id.Value)
+                ;
+            if (Tournament == null)
+            {
+                return NotFound();
+            }
+            return View(Tournament);
+        }
+
+        //public async Task<IActionResult> Details(int? id, string error)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    ViewBag.error = error;
+
+        //    var Tournament = await _context.Tournament.Include(i => i.Teams)
+        //        .ThenInclude(u => u.Attendees)
+        //        .FirstOrDefaultAsync(i => i.TournamentId == id.Value)
+        //        ;
+        //    if (Tournament == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(Tournament);
+        //}
 
         public async Task<IActionResult> Index(string searchString)
         {
