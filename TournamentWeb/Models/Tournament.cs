@@ -20,7 +20,7 @@ namespace TournamentWeb.Models
         public string TournamentName { get; set; }
         [Required]
         public string TournamentInfo { get; set; }
-        //public DateTime CreationDate { get; set;}
+        public DateTime CreationDate { get; set; }
         public DateTime UpdateDate { get; set; }
 
         [CurrentDate(ErrorMessage = "Date must be after or equal to current date")]

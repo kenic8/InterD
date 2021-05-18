@@ -15,11 +15,8 @@ namespace TournamentWeb.Controllers
 {
     public class AddtournamentController : Controller
     {
-
-
         private readonly TournamentWebContext _context;
         private readonly IWebHostEnvironment _webHostEnviroment;
-
         public AddtournamentController(TournamentWebContext context,IWebHostEnvironment webHostEnviroment)
         {
             _context = context;
