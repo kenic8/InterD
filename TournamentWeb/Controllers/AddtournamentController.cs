@@ -56,13 +56,13 @@ namespace TournamentWeb.Controllers
                     objT.Teams = new System.Collections.Generic.List<Teams>();
                     _context.Add(objT);
                     _context.SaveChanges();
-                    return RedirectToAction("Addtournament");
+                    return Redirect("/Tournaments/OverView/"+objT.TournamentId);
                 }
               
                 objT.Teams = new System.Collections.Generic.List<Teams>();
                 _context.Add(objT);
                 _context.SaveChanges();
-                return RedirectToAction("Addtournament");
+                return Redirect("/Tournaments/OverView/" + objT.TournamentId);
             }
             
             return View();

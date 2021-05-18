@@ -21,7 +21,7 @@
             if (i < Model.Count())
             {
                 <a class="T_element" asp-action="OverView" asp-route-id="@Model.ElementAt(i).TournamentId">
-                    @if (true)
+                    @if (@Html.DisplayFor(modelItem => Model.ElementAt(i).TournamentImage) != null)
                     {
                     <div class="T_element-backdrop" style="background:url(/images/tournaments/@Html.DisplayFor(modelItem => Model.ElementAt(i).TournamentImage))">
                         <span>@Html.DisplayFor(modelItem => Model.ElementAt(i).TournamentName)</span>
@@ -128,7 +128,7 @@
     }
 
     .T_element {
-        transition: ease-in-out 0.2s;
+        transition: transform  ease-in-out 0.2s;
         height: 300px;
         border-radius: 12px;
         text-align: center;

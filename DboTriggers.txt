@@ -1,0 +1,49 @@
+
+
+
+//// attendees
+
+CREATE TRIGGER dbo.Updatedate ON dbo.Attendees
+AFTER INSERT, UPDATE 
+AS
+  UPDATE f set UpdateDate=GETDATE() 
+  FROM 
+  dbo.[Tournament] AS f 
+  INNER JOIN inserted 
+  AS i 
+  ON f.TournamentId = i.TeamsTeamId;
+
+
+
+//// teams
+
+
+  
+CREATE TRIGGER dbo.UpdatedateTeams ON dbo.Teams
+AFTER INSERT, UPDATE 
+AS
+  UPDATE f set UpdateDate=GETDATE() 
+  FROM 
+  dbo.[Tournament] AS f 
+  INNER JOIN inserted 
+  AS i 
+  ON f.TournamentId = i.TeamId;
+
+
+
+
+
+
+////tournament 
+
+
+ 
+CREATE TRIGGER dbo.UpdatedateTournament ON dbo.Tournament
+AFTER INSERT, UPDATE 
+AS
+  UPDATE f set UpdateDate=GETDATE() 
+  FROM 
+  dbo.[Tournament] AS f 
+  INNER JOIN inserted 
+  AS i 
+  ON f.TournamentId = i.TournamentId;

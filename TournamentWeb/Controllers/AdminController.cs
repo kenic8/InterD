@@ -41,7 +41,7 @@ namespace TournamentWeb.Controllers
         /// create  users --- use this with tournament creater
         public async Task<IActionResult> Create(RegisterViewModel model)
         {
-
+           
             if (ModelState.IsValid)
             {
                 if (model.ProfileImageFile!=null)
