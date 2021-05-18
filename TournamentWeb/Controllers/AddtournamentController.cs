@@ -15,11 +15,8 @@ namespace TournamentWeb.Controllers
 {
     public class AddtournamentController : Controller
     {
-
-
         private readonly TournamentWebContext _context;
         private readonly IWebHostEnvironment _webHostEnviroment;
-
         public AddtournamentController(TournamentWebContext context,IWebHostEnvironment webHostEnviroment)
         {
             _context = context;
@@ -56,13 +53,13 @@ namespace TournamentWeb.Controllers
                     objT.Teams = new System.Collections.Generic.List<Teams>();
                     _context.Add(objT);
                     _context.SaveChanges();
-                    return RedirectToAction("Addtournament");
+                    return Redirect("/Tournaments/OverView/"+objT.TournamentId);
                 }
               
                 objT.Teams = new System.Collections.Generic.List<Teams>();
                 _context.Add(objT);
                 _context.SaveChanges();
-                return RedirectToAction("Addtournament");
+                return Redirect("/Tournaments/OverView/" + objT.TournamentId);
             }
             
             return View();

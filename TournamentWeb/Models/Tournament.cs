@@ -13,16 +13,18 @@ namespace TournamentWeb.Models
 {
     public class Tournament
     {
-        private DateTime _date = DateTime.Now;
+      
+        private DateTime _date = DateTime.Today;
 
         public int TournamentId { get; set; }
         public string TournamentName { get; set; }
         [Required]
         public string TournamentInfo { get; set; }
         public DateTime CreationDate { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         [CurrentDate(ErrorMessage = "Date must be after or equal to current date")]
-        [DisplayFormat(DataFormatString = "{0:DD-MM-YYYY}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:D}", ApplyFormatInEditMode = true)]
         public DateTime TimeFrame
         {
             get { return _date; }
