@@ -21,16 +21,28 @@
             if (i < Model.Count())
             {
                 <a class="T_element" asp-action="OverView" asp-route-id="@Model.ElementAt(i).TournamentId">
-                    <div class="T_element-backdrop">
+                    @if (true)
+                    {
+                    <div class="T_element-backdrop" style="background:url(/images/tournaments/@Html.DisplayFor(modelItem => Model.ElementAt(i).TournamentImage))">
                         <span>@Html.DisplayFor(modelItem => Model.ElementAt(i).TournamentName)</span>
                     </div>
+                    }
+                    else
+                    {
+                <div class="T_element-backdrop" style="background:url(/images/assets/placeholder.jpg)">
+                    <span>@Html.DisplayFor(modelItem => Model.ElementAt(i).TournamentName)</span>
+                </div>
+                    }
+                    
                     <div class="T_element-info">
-                        <div><span>dada</span></div>
-                        <div><span>fafa</span></div>
-                        <div><span>kaka</span></div>
+                        <div><span><img class="Icon" src="~/images/assets/Landing/att.png" />@Html.DisplayFor(modelItem => Model.ElementAt(i).ParticipantsAmount) &nbsp;&nbsp; </span></div>
+                        <div><span><img class="Icon" src="~/images/assets/Landing/teams.png" /> @Html.DisplayFor(modelItem => Model.ElementAt(i).Teams.Count) / @Html.DisplayFor(modelItem => Model.ElementAt(i).Bracketsize) </span></div>
+                        <div><span><img class="Icon" src="~/images/assets/Landing/dateicon.png" /> @Html.DisplayFor(modelItem => Model.ElementAt(i).TimeFrame.Date)</span></div>
                     </div>
                 </a>
-            } else {
+            }
+            else
+            {
                 <div class="search-placeholder"></div>
             }
         }
@@ -38,6 +50,12 @@
 </div>
 
 <style>
+
+    .Icon {
+        float: left;
+        width: 10%;
+    }
+
     .SearchBar-Wrap {
         padding: 14px;
         background: #1c2123;
@@ -81,18 +99,19 @@
         font-size: 16px;
         cursor: pointer;
     }
+
     .form-search [type=text] {
         background: #151c1f;
         border: 1px solid #d6d6d6;
         color: white;
     }
 
-    .form-search [type=text]:focus {
-        background: #151c1f;
-        border: 1px solid #2fe8a7;
-        color: white;
-        outline: none;
-    }
+        .form-search [type=text]:focus {
+            background: #151c1f;
+            border: 1px solid #2fe8a7;
+            color: white;
+            outline: none;
+        }
 
     .Tournaments-Container {
         display: flex;
@@ -109,6 +128,7 @@
     }
 
     .T_element {
+        transition: ease-in-out 0.2s;
         height: 300px;
         border-radius: 12px;
         text-align: center;
@@ -120,6 +140,11 @@
         box-shadow: 2px 2px 4px 0px #00000061;
     }
 
+
+        .T_element:hover {
+            transform: scale(1.1)
+        }
+
     .T_element-backdrop {
         width: 100%;
         height: 50%;
@@ -127,35 +152,34 @@
         position: relative;
     }
 
-    .T_element-backdrop span {
-        width: 100%;
-        height: max-content;
-        position: absolute;
-        bottom: 0;
-        padding: 8px 0;
-        left: 0;
-        background: #00000052;
-    }
+        .T_element-backdrop span {
+            width: 100%;
+            height: max-content;
+            position: absolute;
+            bottom: 0;
+            padding: 8px 0;
+            left: 0;
+            background: #0a0909ed;
+        }
 
     .T_element-info {
         width: 100%;
         height: 50%;
     }
 
-    .T_element-info div:nth-child(odd) {
-        background: #22282a;
-    }
+        .T_element-info div:nth-child(odd) {
+            background: #22282a;
+        }
 
-    .T_element-info div {
-        width: 100%;
-        height: 33%;
-        display: flex;
-        align-items: center;
-    }
+        .T_element-info div {
+            width: 100%;
+            height: 33%;
+            display: flex;
+            align-items: center;
+        }
 
-    .T_element-info div span {
-        color: #d6d6d6;
-        margin-left: 12px;
-    }
-
+            .T_element-info div span {
+                color: #d6d6d6;
+                margin-left: 12px;
+            }
 </style>
