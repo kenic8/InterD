@@ -21,8 +21,7 @@
                 <div class="navbar-content-user">
                     @if (User?.Identity?.IsAuthenticated ?? false)
                     {
-                        <a asp-controller="Account" asp-action="Logout"
-                           >Logout</a>
+                        <a asp-controller="Account" asp-action="Logout">Logout</a>
                     }
                     else
                     {
@@ -33,10 +32,14 @@
                     }
                 </div>
             </div>
-</nav>
+        </nav>
     </header>
     <div class="Facontainer">
         <div id="Sidebar">
+            @if (User?.Identity?.IsAuthenticated ?? false)
+        {
+            @await Component.InvokeAsync("UserTournaments")
+        }
             <div class="sidebarTrigger" onclick="ToggleSideBar()">
                 <div class="sidebarTrigger-Indicator"></div>
             </div>
@@ -116,6 +119,7 @@
     }
 
     #Sidebar {
+        position:relative;
         z-index: 1;
         transition: min-width ease-out 0.2s;
         min-width: 0px;
@@ -162,6 +166,7 @@
         clip-path: polygon(0 0, 0 100%, 100% 50%);
         background: #000000a3;
     }
+
     .sidebarTrigger-open .sidebarTrigger-Indicator {
         transform: translate(-50%, -50%) rotate(180deg);
     }
@@ -180,13 +185,13 @@
         align-items: center;
     }
 
-    .navbar-container div {
-        margin: auto 8px;
-    }
+        .navbar-container div {
+            margin: auto 8px;
+        }
 
-    .navbar-container div a{
-        position: relative;
-    }
+            .navbar-container div a {
+                position: relative;
+            }
 
     .navbar-logo {
         padding-right: 12px;
@@ -196,18 +201,18 @@
         letter-spacing: 2px;
     }
 
-    .navbar-logo a{
-        color: white !important;
-    }
+        .navbar-logo a {
+            color: white !important;
+        }
 
     .navbar-content {
         flex-grow: 1;
     }
 
-    .navbar-content a{
-        color: #d6d6d6 !important;
-        margin: 0 12px !important;
-    }
+        .navbar-content a {
+            color: #d6d6d6 !important;
+            margin: 0 12px !important;
+        }
 
     .navbar-content-user {
     }
@@ -231,22 +236,21 @@
         padding: 0 100px;
     }
 
-    .footer-container div{
-        width: 100px;
-    }
+        .footer-container div {
+            width: 100px;
+        }
 
-    .footer-container div ul{
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+            .footer-container div ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
 
-    .footer-container div p {
-        color: white;
-        font-weight: bold;
-        margin: 0 0 12px 0;
-
-    }
+            .footer-container div p {
+                color: white;
+                font-weight: bold;
+                margin: 0 0 12px 0;
+            }
 
 
     /* unvisited link */
@@ -256,27 +260,26 @@
         cursor: pointer;
     }
 
-    a:link {
-        color: #2ee4a4;
-        text-decoration: none;
-    }
+        a:link {
+            color: #2ee4a4;
+            text-decoration: none;
+        }
 
-    /* visited link */
-    a:visited {
-        color: #2ee4a4;
-        text-decoration: none;
-    }
+        /* visited link */
+        a:visited {
+            color: #2ee4a4;
+            text-decoration: none;
+        }
 
-    /* mouse over link */
-    a:hover {
-        color: #2ee4a4;
-        text-decoration: none;
-    }
+        /* mouse over link */
+        a:hover {
+            color: #2ee4a4;
+            text-decoration: none;
+        }
 
-    /* selected link */
-    a:active {
-        color: #2ee4a4;
-        text-decoration: none;
-    }
-
+        /* selected link */
+        a:active {
+            color: #2ee4a4;
+            text-decoration: none;
+        }
 </style>
