@@ -5,7 +5,7 @@
 
 
 @{
-    string bracketLindk = "https://schooltournament.azurewebsites.net/Bracket/Index/" + Model.TournamentId + "?User=" + UserManager.GetUserId(User);
+    string bracketLindk = "https://tournamentwebapp.azurewebsites.net/Bracket/Index/" + Model.TournamentId + "?User=" + UserManager.GetUserId(User);
 }
 
 
@@ -36,15 +36,6 @@
     <div id="balckdropTexture"></div>
     <iframe src="@bracketLindk" frameBorder="0" scrolling="no" allowTransparency="true"></iframe>
 </div>
-
-
-@*<div id="Tcontainer" data-torunamentID="@Model.TournamentId">
-        <div id="BracketContainer">
-
-        </div>
-    </div>*@
-
-
 
 
 <div class="Pcontainer Page-Container">

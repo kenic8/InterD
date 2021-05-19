@@ -9,8 +9,9 @@ html {
     min-height: 100%;
 }
 
-h1, h2, h3, h4, p{
+h1, h2, h3, h4, p {
     color: white;
+    font-family: 'Lato', sans-serif;
 }
 
 header {
@@ -177,4 +178,25 @@ form [type=datetime-Local]::-webkit-calendar-picker-indicator:hover {
 
 .form-default input:-webkit-autofill {
     -webkit-text-fill-color: white !important;
+}
+
+/*SCROLBAR*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #1a1d1f;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #272d2f;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

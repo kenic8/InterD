@@ -38,9 +38,7 @@ namespace TournamentWeb.Controllers
             } else
             {
                 TempData["PopupView"] = PopupView;
-
             }
-
 
             
 

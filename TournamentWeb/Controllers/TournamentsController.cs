@@ -189,24 +189,24 @@ namespace TournamentWeb.Controllers
 
             // do something to make it clear why you cant make a team frontend stuff
             string error = null;
-            if (!tatatata)
-            {
-                if (TournamentToUpdate.Teams.Count() < TournamentToUpdate.Bracketsize)
-                {
-                    TournamentToUpdate.Teams.Add(Team);
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    error = "Error-TournamentIsFull";
-                }
-            }
-            else
-            {
-                error = "Error-PlayerIsInTournament";
-            }
-            //TournamentToUpdate.Teams.Add(Team);
-            //_context.SaveChanges();
+            //if (!tatatata)
+            //{
+            //    if (TournamentToUpdate.Teams.Count() < TournamentToUpdate.Bracketsize)
+            //    {
+            //        TournamentToUpdate.Teams.Add(Team);
+            //        _context.SaveChanges();
+            //    }
+            //    else
+            //    {
+            //        error = "Error-TournamentIsFull";
+            //    }
+            //}
+            //else
+            //{
+            //    error = "Error-PlayerIsInTournament";
+            //}
+            TournamentToUpdate.Teams.Add(Team);
+            _context.SaveChanges();
 
             return RedirectToAction("View", new { id = id, error = error });
         }

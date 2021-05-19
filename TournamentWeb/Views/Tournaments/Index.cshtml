@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<TournamentWeb.Models.Tournament>
 
-@{ ViewData["Title"] = "Tournaments"; }
+@{ 
+    ViewData["Title"] = "Tournaments"; 
+}
 
 <div class="TorunamentsPage Page Page-Container">
     <h1>Tournaments</h1>
@@ -16,29 +18,28 @@
     </div>
 
     <div class="Tournaments-Container">
-        @*@for (int i = 0; i < 20; i++)*@
         @foreach (var T in Model)
         {
-                <a class="T_element" asp-action="OverView" asp-route-id="@T.TournamentId">
-                    @if (true)
-                    {
+        <a class="T_element" asp-action="OverView" asp-route-id="@T.TournamentId">
+            @if (T.TournamentImage != null)
+                {
                     <div class="T_element-backdrop" style="background:url(/images/tournaments/@T.TournamentImage)">
                         <span>@T.TournamentName</span>
                     </div>
-                    }
-                    else
-                    {
-                <div class="T_element-backdrop" style="background:url(/images/assets/placeholder.jpg)">
-                    <span>@T.TournamentName</span>
-                </div>
-                    }
+                }
+                else
+                {
+                    <div class="T_element-backdrop" style="background:url(/images/assets/placeholder.jpg)">
+                        <span>@T.TournamentName</span>
+                    </div>
+                }
 
-                <div class="T_element-info">
-                    <div><span> <img class="Icon" src="~/images/assets/Landing/att.png" />@T.ParticipantsAmount</span></div>
-                    <div><span> <img class="Icon" src="~/images/assets/Landing/teams.png" /> @T.Teams.Count / @T.Bracketsize</span></div>
-                    <div><span><img class="Icon" src="~/images/assets/Landing/dateicon.png" /> @T.TimeFrame.ToString("dd/MM HH:mm")</span></div>
-                </div>
-                </a>
+            <div class="T_element-info">
+                <div><span> <img class="Icon" src="~/images/assets/Landing/att.png" />@T.ParticipantsAmount</span></div>
+                <div><span> <img class="Icon" src="~/images/assets/Landing/teams.png" /> @T.Teams.Count / @T.Bracketsize</span></div>
+                <div><span><img class="Icon" src="~/images/assets/Landing/dateicon.png" /> @T.TimeFrame.ToString("dd/MM HH:mm")</span></div>
+            </div>
+        </a>
             }
         @for (int i = 0; i < 6; i++)
         {
