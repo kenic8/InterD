@@ -25,6 +25,8 @@ namespace TournamentWeb.Controllers
             {
                 TempData["PopupView"] = PopupView;
             }
+            string url = this.Url.ActionLink("AddPlayer", "Tournaments", new { id = id1, TeamId = id2 });
+            TempData["id4"] = url;
             return PartialView("PopUp");
         }
 
